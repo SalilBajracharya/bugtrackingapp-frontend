@@ -2,6 +2,8 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { login }  from "../services/auth/authService"
+import { setCredentials } from "../features/auth/authSlice"; 
+import toast from "react-hot-toast";
 
 const LoginPage = () => {
     const dispatch = useDispatch();
@@ -20,9 +22,12 @@ const LoginPage = () => {
             }));
 
             navigate('/bugs');
-        } catch (err) {
-            console.log('Error')
-            setError('Invalid credentials or network error')
+
+            toast.success('Login successful');
+
+            } catch (err) {
+            console.log(err);
+            toast.error("Invalid credentials or network error");
         }
     };
     return(
@@ -31,7 +36,7 @@ const LoginPage = () => {
             <h2>Login</h2>
 
             <div className="form-group">
-                <label>Email or Username</label>
+                <label>Email/Username</label>
                 <input
                     type="text"
                     value={emailOrUsername}
@@ -43,7 +48,7 @@ const LoginPage = () => {
             <div className="form-group">
                 <label>Password</label>
                 <input
-                    type="text"
+                    type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Enter your password"
