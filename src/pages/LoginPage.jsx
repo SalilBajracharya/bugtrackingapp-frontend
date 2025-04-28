@@ -1,4 +1,7 @@
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { login }  from "../services/auth/authService"
 
 const LoginPage = () => {
     const dispatch = useDispatch();
@@ -6,12 +9,11 @@ const LoginPage = () => {
 
     const [emailOrUsername, setEmailOrUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = usestate('');
+    const [error, setError] = useState('');
 
     const handleLogin = async () => {
         try{
             const data = await login(emailOrUsername, password);
-
             dispatch(setCredentials({
                 token: data.token,
                 user: data.user,
@@ -19,6 +21,7 @@ const LoginPage = () => {
 
             navigate('/bugs');
         } catch (err) {
+            console.log('Error')
             setError('Invalid credentials or network error')
         }
     };
