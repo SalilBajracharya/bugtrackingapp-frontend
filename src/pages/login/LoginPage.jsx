@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { login } from "../../services/auth/authService"
+import { login } from "../../services/auth/authService";
 import { setCredentials } from "../../features/auth/authSlice";
 import toast from "react-hot-toast";
 import { jwtDecode } from "jwt-decode";
@@ -15,24 +15,25 @@ const LoginPage = () => {
     const [error, setError] = useState('');
 
     const handleLogin = async () => {
+        // Validate fields
         if (!emailOrUsername) {
-            toast.error('Please enter username !');
+            toast.error('Please enter username!');
             document.getElementById('username').focus();
             return;
         }
 
         if (!password) {
-            toast.error('Please enter password !');
+            toast.error('Please enter password!');
             document.getElementById('password').focus();
             return;
         }
 
-        try {
-            const data = await login(emailOrUsername, password);
+        const data = await login(emailOrUsername, password);
 
+        if (data.token) {
             const decodedToken = jwtDecode(data.token);
-
             const role = decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+            
             localStorage.setItem('token', data.token);
             localStorage.setItem('role', role);
 
@@ -41,16 +42,13 @@ const LoginPage = () => {
                 user: data.user,
             }));
 
-
-
             navigate('/bugs');
-
             toast.success('Login successful');
-
-        } catch (err) {
-            toast.error("Invalid credentials or network error");
+        } else {
+            toast.error('Login failed. No token received.');
         }
     };
+
     return (
         <div className="login-container">
             <h1>Bug Tracking System</h1>

@@ -41,7 +41,7 @@ export const CreateBugModal = ({ isOpen, onClose, onSuccess, bug = null }) => {
     }, [isOpen, bug]);
 
     useEffect(() => {
-        if (isOpen && role !== 'Developer') {
+        if (isOpen && role === 'Developer') {
             fetchDevelopers()
                 .then((data) => setDevelopers(data))
                 .catch((err) => {
