@@ -1,8 +1,8 @@
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { login }  from "../../services/auth/authService"
-import { setCredentials } from "../../features/auth/authSlice"; 
+import { login } from "../../services/auth/authService"
+import { setCredentials } from "../../features/auth/authSlice";
 import toast from "react-hot-toast";
 import { jwtDecode } from "jwt-decode";
 
@@ -15,21 +15,19 @@ const LoginPage = () => {
     const [error, setError] = useState('');
 
     const handleLogin = async () => {
-        if(!emailOrUsername)
-        {
+        if (!emailOrUsername) {
             toast.error('Please enter username !');
             document.getElementById('username').focus();
             return;
         }
 
-        if(!password)
-            {
-                toast.error('Please enter password !');
-                document.getElementById('password').focus();
-                return;
-            }
+        if (!password) {
+            toast.error('Please enter password !');
+            document.getElementById('password').focus();
+            return;
+        }
 
-        try{
+        try {
             const data = await login(emailOrUsername, password);
 
             const decodedToken = jwtDecode(data.token);
@@ -43,18 +41,17 @@ const LoginPage = () => {
                 user: data.user,
             }));
 
-            
+
 
             navigate('/bugs');
 
             toast.success('Login successful');
 
-            } catch (err) {
-            console.log(err);
+        } catch (err) {
             toast.error("Invalid credentials or network error");
         }
     };
-    return(
+    return (
         <div className="login-container">
             <h1>Bug Tracking System</h1>
             <h2>Login</h2>
@@ -82,6 +79,9 @@ const LoginPage = () => {
             </div>
 
             <button className="submit-login" onClick={handleLogin}>Login</button>
+            <p style={{ marginTop: '1rem' }}>
+                Don't have an account? <Link to="/register">Create New User</Link>
+            </p>
         </div>
     );
 }

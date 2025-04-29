@@ -163,3 +163,17 @@ h1{
 .modal-content button[type="button"]:hover {
   background-color: #5a6268;
 }
+
+.icon {
+  cursor: pointer;
+  margin: 0 6px;
+  font-size: 1rem;
+}
+
+.view-icon {
+  color: #007bff;
+}
+
+.edit-icon {
+  color: #28a745;
+}
