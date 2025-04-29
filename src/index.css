@@ -44,8 +44,11 @@ body{
     text-align: start;
   }
 
-button {
+.submit-login {
   width: 100%;
+}
+
+button {
   padding: 8px;
   border: 1px solid lightblue;
   cursor: pointer;

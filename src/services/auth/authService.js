@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import { API_BASE_URL } from "../api"
 
 export const login = async(username, password) => {
@@ -16,7 +17,8 @@ export const login = async(username, password) => {
     );
     
     if (!response.ok){
-        throw new Error('Login Failed');
+        toast.error('Login Failed');
+        return;
     }
 
     const data = await response.json();
