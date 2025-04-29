@@ -1,5 +1,6 @@
 import React from "react";
 import "./bug.css";
+import {BugStatusEnum, SeverityEnum} from "../../enums/bugEnums"
 
 export const ViewBugModal = ({ bug, isOpen, onClose }) => {
     if (!isOpen || !bug) return null;
@@ -14,8 +15,8 @@ export const ViewBugModal = ({ bug, isOpen, onClose }) => {
                 <h2>Bug Details</h2>
                 <p><strong>Title:</strong> {bug.title}</p>
                 <p><strong>Description:</strong> {bug.description}</p>
-                <p><strong>Severity:</strong> {bug.severityLevel}</p>
-                <p><strong>Status:</strong> {bug.status}</p>
+                <p><strong>Severity:</strong> {SeverityEnum[bug.severityLevel]}</p>
+                <p><strong>Status:</strong> {BugStatusEnum[bug.status]}</p>
                 <p><strong>Reproduction Steps:</strong> {bug.reproductionSteps}</p>
                 <p><strong>Reporter:</strong> {bug.reporter}</p>
                 <p><strong>Assigned Developer:</strong> {bug.developer || 'Not Assigned'}</p>

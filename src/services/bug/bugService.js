@@ -2,26 +2,21 @@ import toast from "react-hot-toast";
 import { API_BASE_URL } from "../api"
 import axios from "axios";
 
-export const fetchAllBugs = async (token) => {
-    const response = await fetch(`${API_BASE_URL}/Bug/get-all`, {
+export const fetchAllBugs = async (token, search = "", severity = "", status = "") => {
+    const response = await fetch(`${API_BASE_URL}/Bug/get-all?search=${search}&severity=${severity}&status=${status}`, {
         method: "GET",
         headers: {
-            "Authorization": `Bearer ${token}`,
-            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
         },
     });
-
-    const data = await response.json();
-
     if (!response.ok) {
-        toast.error(data.message);
-        return [];
+        throw new Error("Failed to fetch bugs");
     }
-    return data;
-}
+    return await response.json();
+};
 
-export const fetchBugsByUser = async (token) => {
-    const response = await fetch(`${API_BASE_URL}/Bug/get-by-userid`, {
+export const fetchBugsByUser =  async (token, search = "", severity = "", status = "") => {
+    const response = await fetch(`${API_BASE_URL}/Bug/get-by-userid?search=${search}&severity=${severity}&status=${status}`, {
         method: "GET",
         headers: {
             "Authorization": `Bearer ${token}`,

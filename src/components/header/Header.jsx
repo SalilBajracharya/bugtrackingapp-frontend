@@ -18,7 +18,6 @@ const Header = () => {
       <nav className="nav">
         <h1 className="logo">Bug Tracker</h1>
         <ul className="nav-links">
-          <li><Link to="/bugs">Bugs</Link></li>
           <li><button onClick={handleLogout} className="logout-button">Logout</button></li>
         </ul>
       </nav>

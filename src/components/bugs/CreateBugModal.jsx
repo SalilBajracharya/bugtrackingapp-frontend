@@ -17,19 +17,28 @@ export const CreateBugModal = ({ isOpen, onClose, onSuccess, bug = null }) => {
     const [file, setFile] = useState(null);
     const [developers, setDevelopers] = useState([]);
 
-    // Check the role from localStorage
-    const role = localStorage.getItem("role"); // Assuming role is stored in localStorage
+    const role = localStorage.getItem("role");
 
     useEffect(() => {
-        if (bug) {
-            setTitle(bug.title || '');
-            setDescription(bug.description || '');
-            setSeverityLevel(bug.severityLevel || 'Low');
-            setReproductionSteps(bug.reproductionSteps || '');
-            setStatus(bug.status);
-            setDeveloperId(bug.developerId || '');
+        if (isOpen) {
+            if (bug) {
+                setTitle(bug.title || '');
+                setDescription(bug.description || '');
+                setSeverityLevel(bug.severityLevel || 'Low');
+                setReproductionSteps(bug.reproductionSteps || '');
+                setStatus(bug.status || 'Open');
+                setDeveloperId(bug.developerId || '');
+            } else {
+                setTitle('');
+                setDescription('');
+                setSeverityLevel('Low');
+                setReproductionSteps('');
+                setStatus('Open');
+                setDeveloperId('');
+                setFile(null);
+            }
         }
-    }, [bug]);
+    }, [isOpen, bug]);
 
     useEffect(() => {
         if (isOpen && role !== 'Developer') {
@@ -179,11 +188,13 @@ export const CreateBugModal = ({ isOpen, onClose, onSuccess, bug = null }) => {
                         </>
                     )}
 
-                    <button type="submit" disabled={loading}>
-                        {loading ? 'Submitting...' : 'Submit'}
-                    </button>
+                    <div className="frm-buttons">
+                        <button type="submit" disabled={loading}>
+                            {loading ? 'Submitting...' : 'Submit'}
+                        </button>
+                        <button className="btn-close" onClick={onClose}>Close</button>
+                    </div>
                 </form>
-                <button onClick={onClose}>Close</button>
             </div>
         </div>
     );
