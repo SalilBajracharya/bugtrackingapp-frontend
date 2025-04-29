@@ -65,14 +65,14 @@ const BugPage = () => {
                         type="text"
                         className="search-input"
                         placeholder="Search Bugs"
-                        value={search}  // Fixed variable here
-                        onChange={(e) => setSearch(e.target.value)}  // Fixed variable here
+                        value={search}  
+                        onChange={(e) => setSearch(e.target.value)}  
                     />
 
                     <select
                         className="select-dropdown"
-                        value={severity}  // Fixed variable here
-                        onChange={(e) => setSeverity(e.target.value)}  // Fixed variable here
+                        value={severity}  
+                        onChange={(e) => setSeverity(e.target.value)} 
                     >
                         <option value="">Severity Level</option>
                         <option value="0">Low</option>
@@ -83,8 +83,8 @@ const BugPage = () => {
 
                     <select
                         className="status-dropdown"
-                        value={status}  // Fixed variable here
-                        onChange={(e) => setStatus(e.target.value)}  // Fixed variable here
+                        value={status} 
+                        onChange={(e) => setStatus(e.target.value)} 
                     >
                         <option value="">Status</option>
                         <option value="0">Open</option>

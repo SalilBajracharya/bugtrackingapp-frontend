@@ -48,7 +48,6 @@ const bugSlice = createSlice({
                 state.error = action.payload;
             })
 
-            // Handling updateBugReport
             .addCase(updateBugReportThunk.pending, (state) => {
                 state.loading = true;
                 state.error = null;
